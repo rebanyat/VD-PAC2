@@ -1,0 +1,25 @@
+month,Damage,incidents,month_name
+1,Caused damage,140,Gener
+1,No damage,797,Gener
+2,Caused damage,110,Febrer
+2,No damage,662,Febrer
+3,Caused damage,215,Març
+3,No damage,1018,Març
+4,Caused damage,223,Abril
+4,No damage,1605,Abril
+5,Caused damage,182,Maig
+5,No damage,2136,Maig
+6,Caused damage,161,Juny
+6,No damage,1917,Juny
+7,Caused damage,186,Juliol
+7,No damage,3092,Juliol
+8,Caused damage,233,Agost
+8,No damage,3477,Agost
+9,Caused damage,277,Setembre
+9,No damage,3140,Setembre
+10,Caused damage,288,Octubre
+10,No damage,2750,Octubre
+11,Caused damage,268,Novembre
+11,No damage,1533,Novembre
+12,Caused damage,171,Desembre
+12,No damage,848,Desembre

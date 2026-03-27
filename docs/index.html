@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAC 2 — Visualització de Dades</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', 'Open Sans', sans-serif;
+            background: #fafafa;
+            color: #2c2c2c;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            background: #1a1a2e;
+            color: white;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #a0a0b8;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            width: 100%;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 5px solid;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .card .tecnica {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .card-pie    { border-color: #f5e642; }
+        .card-pie .tecnica { color: #b8a800; }
+
+        .card-night  { border-color: #ffab91; }
+        .card-night .tecnica { color: #d84315; }
+
+        .card-bump   { border-color: #a1887f; }
+        .card-bump .tecnica { color: #5d4037; }
+
+        footer {
+            margin-top: auto;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        footer a { color: #777; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>PAC 2 — Visualització de Dades</h1>
+    <p>Ivan Rodríguez Quintana - UOC</p>
+</header>
+
+<div class="cards">
+
+    <a href="pie_chart.html" class="card card-pie">
+        <div class="tecnica">Pie Chart</div>
+        <h2>Formes d'OVNIs als EUA</h2>
+        <p>Distribució de 78.400 avistaments reportats al NUFORC (1949–2014), agrupats per forma descrita pels testimonis.</p>
+    </a>
+
+    <a href="nightingale.html" class="card card-night">
+        <div class="tecnica">Nightingale Rose Chart</div>
+        <h2>Impactes d'aus contra aeronaus</h2>
+        <p>Patró estacional de 25.429 col·lisions fauna-avions registrades per la FAA (2000–2011). L'àrea de cada segment representa el volum d'incidents.</p>
+    </a>
+
+    <a href="bump_chart.html" class="card card-bump">
+        <div class="tecnica">Bump Chart</div>
+        <h2>Rànking de consum de xocolata</h2>
+        <p>Evolució del top 10 de països consumidors de cacau per càpita (1990–2023), amb dades de la FAO.</p>
+    </a>
+
+</div>
+
+<footer>
+    <p>Dades obertes · Python + Plotly · <a href="https://github.com/rebanyat/VD-PAC2" target="_blank">GitHub</a></p>
+</footer>
+
+</body>
+</html>

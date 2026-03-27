@@ -1,0 +1,26 @@
+# Datasets originals (pesants, no cal al repo)
+Datasets/
+
+# Material del curs (vídeos i PDFs)
+Material/
+
+# Notes personals i captures
+pla.md
+recerca.md
+enunciat.md
+*.png
+
+# Sistema
+.DS_Store
+__pycache__/
+*.pyc
+
+# Fitxers auxiliars LaTeX
+*.aux
+*.log
+*.fls
+*.nav
+*.out
+*.snm
+*.toc
+*.fdb_latexmk

@@ -1,0 +1,377 @@
+\documentclass[aspectratio=169, 11pt]{beamer}
+
+% ── Tema i colors ──────────────────────────────────────────
+\usetheme{Madrid}
+\usecolortheme{default}
+
+% Colors personalitzats — to càlid, acadèmic
+\definecolor{uocblau}{RGB}{0, 74, 124}
+\definecolor{uocgris}{RGB}{100, 100, 100}
+\definecolor{fonsclar}{RGB}{250, 250, 250}
+
+\setbeamercolor{palette primary}{bg=uocblau, fg=white}
+\setbeamercolor{palette secondary}{bg=uocblau!80, fg=white}
+\setbeamercolor{palette tertiary}{bg=uocblau!60, fg=white}
+\setbeamercolor{frametitle}{bg=uocblau, fg=white}
+\setbeamercolor{title}{fg=uocblau}
+\setbeamercolor{item}{fg=uocblau}
+\setbeamercolor{block title}{bg=uocblau, fg=white}
+
+% Treure elements de navegació innecessaris
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+% ── Paquets ────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[catalan]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{multicol}
+
+% ── Metadades ──────────────────────────────────────────────
+\title{PAC 2 --- Visualització de Dades}
+\subtitle{Pie Chart · Nightingale Rose Chart · Bump Chart}
+\author{Ivan Rodríguez Quintana}
+\institute{Universitat Oberta de Catalunya}
+\date{Març 2026}
+
+% ══════════════════════════════════════════════════════════════
+\begin{document}
+
+% ── PORTADA ────────────────────────────────────────────────
+\begin{frame}[plain]
+\centering
+\vspace{1.5em}
+
+{\color{uocblau}\rule{\textwidth}{2pt}}
+
+\vspace{1em}
+{\Large\bfseries\color{uocblau} PAC 2 --- Visualització de Dades}
+
+\vspace{0.5em}
+{\large Pie Chart · Nightingale Rose Chart · Bump Chart}
+
+\vspace{1em}
+{\color{uocblau}\rule{\textwidth}{0.5pt}}
+
+\vspace{1.5em}
+{\normalsize Ivan Rodríguez Quintana}\\[0.3em]
+{\small Universitat Oberta de Catalunya}\\[0.3em]
+{\small Març 2026}
+
+\vspace{1.5em}
+{\color{uocblau}\rule{\textwidth}{2pt}}
+\end{frame}
+
+% ── INTRODUCCIÓ ────────────────────────────────────────────
+\begin{frame}{Objectiu de la PAC}
+\begin{itemize}
+    \item Crear \textbf{3 visualitzacions interactives} amb tècniques assignades
+    \item Publicar-les amb \textbf{URL pública} accessible sense registre
+    \item Demostrar comprensió de cada tècnica i coherència dades--visualització
+\end{itemize}
+
+\vspace{1em}
+
+\begin{block}{Eines utilitzades}
+    \textbf{Python 3} + \textbf{Plotly} (graph\_objects i express) + \textbf{Pandas}\\
+    Publicació: \textbf{GitHub Pages} \hfill
+    \footnotesize{\url{https://rebanyat.github.io/VD-PAC2/}}
+\end{block}
+\end{frame}
+
+% ── TÈCNIQUES ASSIGNADES ──────────────────────────────────
+\begin{frame}{Tècniques i datasets}
+\begin{table}
+\centering
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Tècnica} & \textbf{Dataset} & \textbf{Font} \\
+\midrule
+Pie Chart & Formes d'OVNIs (78.400 reg.) & NUFORC / Kaggle \\
+Nightingale Rose & Impactes aus--avions (25.429 reg.) & FAA / Kaggle \\
+Bump Chart & Consum xocolata per càpita & FAO / Our World in Data \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════
+% SECCIÓ 1: PIE CHART
+% ══════════════════════════════════════════════════════════════
+
+\begin{frame}{Pie Chart --- Definició i funcionament}
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\begin{itemize}
+    \item Gràfic circular que divideix un \textbf{total} en sectors proporcionals
+    \item Cada sector representa una \textbf{categoria} i la seva proporció sobre el total
+    \item L'angle del sector és proporcional al valor que representa
+    \item Adequat per a \textbf{poques categories} (5--10 màx.)
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\begin{block}{Limitacions}
+    \small
+    \begin{itemize}
+        \item Difícil comparar sectors de mida similar
+        \item Perd llegibilitat amb moltes categories
+        \item L'ull humà compara malament àrees/angles
+    \end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Pie Chart --- Dataset i transformació}
+\begin{block}{Dataset: NUFORC (National UFO Reporting Center)}
+    78.400 avistaments d'OVNIs als EUA, registrats entre 1949 i 2014.
+\end{block}
+
+\vspace{0.8em}
+
+\textbf{Transformació aplicada:}
+\begin{enumerate}
+    \item Eliminar registres sense forma reportada (1.932 files)
+    \item Agrupar per la columna \texttt{shape} i comptar freqüències
+    \item Mantenir les \textbf{10 formes més freqüents}, resta com a ``Diverses formes''
+    \item Traducció dels noms de formes de l'anglès al català
+\end{enumerate}
+
+\vspace{0.5em}
+\small
+\textbf{Resultat:} 11 categories (10 + Diverses) --- ideal per a un pie chart.
+\end{frame}
+
+\begin{frame}{Pie Chart --- Visualització i anàlisi}
+\centering
+\textit{[Demostració en viu: \url{https://rebanyat.github.io/VD-PAC2/pie_chart.html}]}
+
+\vspace{1.5em}
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{Observacions clau:}
+\begin{itemize}
+    \item ``Llum'' domina amb un 21\% dels avistaments
+    \item Les 3 formes principals (Llum, Triangle, Cercle) sumen quasi el 41\%
+    \item ``Bola de foc'' és la 4a forma més comuna
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\textbf{Per què encaixa:}
+\begin{itemize}
+    \item Poques categories ben diferenciades
+    \item Objectiu: mostrar proporcions d'un total
+    \item La temàtica còsmica reforça el contingut visual
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════
+% SECCIÓ 2: NIGHTINGALE ROSE CHART
+% ══════════════════════════════════════════════════════════════
+
+\begin{frame}{Nightingale Rose Chart --- Origen i funcionament}
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\begin{itemize}
+    \item Inventada per \textbf{Florence Nightingale} el \textbf{1858}
+    \item Usada per visualitzar causes de mortalitat a la Guerra de Crimea
+    \item Gràfic polar on l'\textbf{àrea} del segment (no el radi) representa el valor
+    \item Tots els segments tenen el \textbf{mateix angle}; el radi varia
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\begin{block}{Diferència clau vs.\ bar chart}
+    \small
+    Com que àrea $= \pi r^2 \cdot \frac{\theta}{2\pi}$ i $\theta$ és constant, cal aplicar $r = \sqrt{n}$ perquè l'àrea sigui proporcional al valor real.
+    Sense la correcció, les diferències s'exageren visualment.
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Nightingale Rose Chart --- Dataset i transformació}
+\begin{block}{Dataset: FAA Wildlife Strike Database}
+    25.429 incidents de col·lisió entre fauna i aeronaus als EUA (2000--2011).
+\end{block}
+
+\vspace{0.8em}
+
+\textbf{Transformació aplicada:}
+\begin{enumerate}
+    \item Parsejar la columna \texttt{FlightDate} (format M/D/YY)
+    \item Extreure el mes de cada incident
+    \item Comptar incidents per mes, amb desglossament per danys
+    \item Aplicar transformació $r = \sqrt{n}$ per a representació fidel de l'àrea
+\end{enumerate}
+
+\vspace{0.5em}
+\small
+\textbf{Resultat:} 12 valors mensuals amb 2 capes (amb/sense danys) --- perfecte per a un gràfic cíclic.
+\end{frame}
+
+\begin{frame}{Nightingale Rose Chart --- Visualització i anàlisi}
+\centering
+\textit{[Demostració en viu: \url{https://rebanyat.github.io/VD-PAC2/nightingale.html}]}
+
+\vspace{1.5em}
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{Observacions clau:}
+\begin{itemize}
+    \item Pic clar a l'\textbf{Agost} (3.710 incidents)
+    \item Mínim al \textbf{Febrer} (772 incidents)
+    \item Patró estacional: coincideix amb la migració d'aus
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\textbf{Per què encaixa:}
+\begin{itemize}
+    \item Dades cícliques (12 mesos)
+    \item Patró estacional clar i repetitiu
+    \item Homenatge a l'ús original de Nightingale (mortalitat per mes)
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════
+% SECCIÓ 3: BUMP CHART
+% ══════════════════════════════════════════════════════════════
+
+\begin{frame}{Bump Chart --- Definició i funcionament}
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\begin{itemize}
+    \item Mostra com canvien els \textbf{rànkings} de diverses entitats al llarg del temps
+    \item Eix X: temps --- Eix Y: posició al rànking (invertit, \#1 a dalt)
+    \item Cada entitat és una línia connectada que ``salta'' amunt o avall
+    \item \textbf{Color} per distingir cada entitat
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\begin{block}{Avantatges}
+    \small
+    \begin{itemize}
+        \item Destaca canvis significatius de posició
+        \item Detecta tendències (ascens, descens, estabilitat)
+        \item Línies rectes = rànking estable
+    \end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Bump Chart --- Dataset i transformació}
+\begin{block}{Dataset: FAO via Our World in Data}
+    Consum de cacau per càpita (kg/any) per país, de 1961 a 2023.
+\end{block}
+
+\vspace{0.8em}
+
+\textbf{Transformació aplicada:}
+\begin{enumerate}
+    \item Eliminar regions agregades (FAO, continents) i nacions petites
+    \item Filtrar període 1990--2023
+    \item Seleccionar els 10 països amb major consum mitjà
+    \item Calcular rànking per any ($1 =$ consum més alt)
+    \item Traducció dels noms de països al català
+\end{enumerate}
+
+\vspace{0.5em}
+\small
+\textbf{Resultat:} 10 països × 34 anys --- ideal per a un bump chart dinàmic.
+\end{frame}
+
+\begin{frame}{Bump Chart --- Visualització i anàlisi}
+\centering
+\textit{[Demostració en viu: \url{https://rebanyat.github.io/VD-PAC2/bump_chart.html}]}
+
+\vspace{1.5em}
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{Observacions clau:}
+\begin{itemize}
+    \item \textbf{Costa d'Ivori} lidera el 2023 --- sorprenent, ja que és productor
+    \item \textbf{Luxemburg} i \textbf{Islàndia} es mantenen estables al top
+    \item Canvis significatius al llarg de les dècades
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\textbf{Per què encaixa:}
+\begin{itemize}
+    \item Dades de rànking que evolucionen en el temps
+    \item 10 entitats: suficients per veure competència
+    \item Interactivitat (hover, clic) ajuda la comprensió
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════
+% TANCAMENT
+% ══════════════════════════════════════════════════════════════
+
+\begin{frame}{URLs públiques}
+\centering
+\vspace{1em}
+
+\large
+\begin{tabular}{@{}ll@{}}
+\textbf{Índex:} & \url{https://rebanyat.github.io/VD-PAC2/} \\[0.8em]
+\textbf{Pie Chart:} & \url{https://rebanyat.github.io/VD-PAC2/pie_chart.html} \\[0.8em]
+\textbf{Nightingale:} & \url{https://rebanyat.github.io/VD-PAC2/nightingale.html} \\[0.8em]
+\textbf{Bump Chart:} & \url{https://rebanyat.github.io/VD-PAC2/bump_chart.html} \\
+\end{tabular}
+
+\vspace{1.5em}
+\normalsize
+Totes les visualitzacions són \textbf{interactives} i accessibles sense registre.
+\end{frame}
+
+\begin{frame}{Conclusions}
+\begin{itemize}
+    \item Cada tècnica s'adapta a un \textbf{tipus de dades} específic:
+    \begin{itemize}
+        \item Pie chart $\rightarrow$ proporcions d'un total (poques categories)
+        \item Nightingale $\rightarrow$ dades cícliques amb magnitud variable
+        \item Bump chart $\rightarrow$ rànkings que evolucionen en el temps
+    \end{itemize}
+
+    \vspace{0.8em}
+    \item La \textbf{transformació de dades} és clau: la correcció $r = \sqrt{n}$ al Nightingale evita exagerar diferències
+
+    \vspace{0.8em}
+    \item La \textbf{interactivitat} (hover, clic a la llegenda) millora significativament la comprensió de gràfics complexos com el bump chart
+
+    \vspace{0.8em}
+    \item L'elecció de \textbf{colors temàtics} (còsmic, estacional, xocolata) reforça el missatge de cada visualització
+\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+\centering
+\vspace{3em}
+{\Large \textbf{Gràcies}}
+
+\vspace{2em}
+Ivan Rodríguez Quintana\\
+\small Visualització de Dades --- UOC --- Març 2026
+
+\vspace{1em}
+\footnotesize
+\url{https://rebanyat.github.io/VD-PAC2/}
+
+\vspace{1em}
+{\scriptsize\color{uocgris} Esbós inicial de les visualitzacions amb l'ajuda de Claude (Anthropic)}
+\end{frame}
+
+\end{document}
